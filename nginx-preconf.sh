@@ -30,7 +30,7 @@ commit() {
 
 push() {
     echo "Function to push your changes to origin and return to master branch"
-    git push origin nginx-conf-branch && git checkout master && git branch -D nginx-conf-branch
+    git push origin nginx-conf-branch && git checkout master
     exit 0
 }
 
