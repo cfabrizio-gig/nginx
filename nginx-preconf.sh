@@ -8,6 +8,10 @@ display_help() {
     echo
     echo "   commit            You must put a comment or description"
     echo
+    echo "   push              Push your branch to origin"
+    echo
+    echo "   new_branch        Function to create a new branch and start to work on it"
+    echo
     # echo some stuff here for the -a or --add-options
     exit 1
 }
@@ -26,12 +30,15 @@ commit() {
 
 push() {
     echo "Function to push your changes to origin and return to master branch"
-    git push origin nginx-conf-branch && git checkout master
+    git push origin nginx-conf-branch && git checkout master && git branch -D nginx-conf-branch
     exit 0
 }
 
-
-#create_new_branch
+reload() {
+    echo "Function to update the nginx conf and reload the service"
+    git pull && nginx -t && service nginx reload
+    exit 0
+}
 
 case "$1" in
     new_branch)
@@ -48,6 +55,10 @@ case "$1" in
         ;;
     commit)
         commit
+        exit 1
+        ;;
+    reload)
+        reload
         exit 1
         ;;
 esac
