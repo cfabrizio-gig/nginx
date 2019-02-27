@@ -5,14 +5,13 @@
 #########################
 display_help() {
     echo "Usage: $0 [option...] {new_branch|add|commit}" >&2
+    echo "   new_branch        Function to create a new branch and start to work on it"
     echo
     echo "   commit            You must put a comment or description"
     echo
     echo "   push              Push your branch to origin"
     echo
-    echo "   new_branch        Function to create a new branch and start to work on it"
-    echo
-    # echo some stuff here for the -a or --add-options
+    echo "   reload            Reload nginx configuration"
     exit 1
 }
 
@@ -36,7 +35,7 @@ push() {
 
 reload() {
     echo "Function to update the nginx conf and reload the service"
-    git pull && nginx -t && service nginx reload
+    git branch -D nginx-conf-branch && git pull && nginx -t && service nginx reload
     exit 0
 }
 
